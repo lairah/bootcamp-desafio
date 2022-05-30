@@ -1,6 +1,8 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { AppDataSource } from './config/data-source';
 import { CategoryController } from './controllers/category.controller';
+import { CreateCategoryDto } from './dtos/category/create-category.dto';
+import { validator } from './middlewares';
 import { CategoryService } from './services/category.service';
 
 const routes = Router();
@@ -20,7 +22,7 @@ routes.get('/categories', (request: Request, response: Response, next: NextFunct
   });
 });
 
-routes.post('/categories', (request: Request, response: Response, next: NextFunction) => {
+routes.post('/categories', CreateCategoryDto.validators(), validator, (request: Request, response: Response, next: NextFunction) => {
   categoryController.create(request, response).catch((error:Error) => {
     next(error);
   });

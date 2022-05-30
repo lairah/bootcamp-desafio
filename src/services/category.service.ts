@@ -21,10 +21,18 @@ export class CategoryService {
     }
   }
 
+  /*async show(id: string): Promise<CreateCategoryDto> {
+    const category = await this.categoryRepository.findOne({where: { id }});
+    if (category)
+    return new CreateCategoryDto({ id: category?.id, name: category.name });
+    else return new CategoryEntity();
+  } */
+
   async create({ name }: CreateCategoryDto): Promise<CreatedCategoryDto> {
     try {
       const createCategory = this.categoryRepository.create({ name });
       const savedCategory = await this.categoryRepository.save(createCategory);
+      throw new Error('Algo deu errado!')
       return new CreatedCategoryDto(savedCategory);
     } catch (error) {
       throw new HttpException('Houve um erro ao adicionar categoria!', HttpStatus.BAD_REQUEST);
