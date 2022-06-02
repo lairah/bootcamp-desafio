@@ -21,6 +21,12 @@ const productController = new ProductController(
   new ProductService(AppDataSource)
 );
 
+
+routes.get('/', (request: Request, response: Response) => {
+
+  return response.json({ status: 'success', version: '1.0.0'}).status(200)
+});
+
 routes.get('/', (request: Request, response: Response, next: NextFunction)=>{
   categoryController.getAll(request, response).catch((error:Error) => {
     next(error)
