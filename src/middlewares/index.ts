@@ -1,15 +1,21 @@
-import { NextFunction, Request, Response } from "express";
-import { validationResult } from "express-validator";
-import { ErrorHandler } from "../handler-exceptions/error-handler";
-import { HttpStatus } from "../utils/enums/http-status.enum";
+import { NextFunction, Request, Response } from 'express';
+import { validationResult } from 'express-validator';
+import { ErrorHandler } from '../handler-exceptions/error-handler';
+import { HttpStatus } from '../utils/enums/http-status.enum';
 
-export function validator(request: Request, response: Response, next: NextFunction) {
-  const statusCode = HttpStatus.BAD_REQUEST
+export function validator(
+  request: Request,
+  response: Response,
+  next: NextFunction,
+) {
+  const statusCode = HttpStatus.BAD_REQUEST;
   const errors = validationResult(request);
   if (!errors.isEmpty()) {
-    return response.status(statusCode).json({ errors: errors.array(), statusCode });
+    return response
+      .status(statusCode)
+      .json({ errors: errors.array(), statusCode });
   }
-  next()
+  next();
 }
 
 export function errorHandler(

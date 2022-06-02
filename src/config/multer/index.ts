@@ -42,7 +42,7 @@ export const multerConfig: Options = {
         new HttpException(
           'Arquivo com formato inválido!',
           HttpStatus.BAD_REQUEST,
-        ),
+        )
       );
   },
 }
